@@ -1,3 +1,5 @@
+import java.lang.Math.*;
+
 public class Date{
     private int day;
     private int month;
@@ -49,9 +51,13 @@ public class Date{
     }
 
     public Date getRandomDateInsideYear(){
-        int day=
-        int month=
-        int year=this.year;
+        do{
+            int day=(int)(Math.random()*31+1);
+            int month=(int)(Math.random()*12+1);
+            int year=this.year;
+            Date date=new Date(day, month, year);
+        }while(!date.isValid());      
+        return date;
     }
 
     public int getNumAttemptsToday(){
@@ -64,8 +70,16 @@ public class Date{
         return numTries;
     }
 
+    public int getDay(){
+        return this.day;
+    }
+
     public int getMonth(){
         return this.month;
+    }
+
+    public int getYear(){
+        return this.year;
     }
 
     public void setMonth(int newMonth){
@@ -118,7 +132,7 @@ public class Date{
         }
     }
 
-    public boolean validDay(){
+    public boolean isValid(){
         boolean isValid=true;
     
         switch(this.getMonth()){ 
