@@ -71,4 +71,25 @@ public class Date{
     public void setMonth(int newMonth){
         this.month=newMonth;
     }
+
+    public boolean isSameYear(Date date) {
+        return this.getYear()==date.getYear();
+    }       
+
+    public boolean isSameMonth(Date date) {
+        return this.getMonth()==date.getMonth();
+    }
+
+    public boolean isSameDay(){
+        return this.getDay()==date.getDay();
+    }
+
+    public boolean isSame(Date date){
+        return this.equals(date);
+    }
+
+    public String getNameMonth(){
+
+    }
+
 }
