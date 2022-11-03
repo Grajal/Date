@@ -13,7 +13,6 @@ public class Date{
 
     public int getDaysSinceStartYear(){
         int days=0;
-        Date current=new Date(1, 1, 2022);        
 
 
         for(int i=1;i<this.month;i++){
@@ -51,11 +50,12 @@ public class Date{
     }
 
     public Date getRandomDateInsideYear(){
+        Date date;
         do{
             int day=(int)(Math.random()*31+1);
             int month=(int)(Math.random()*12+1);
             int year=this.year;
-            Date date=new Date(day, month, year);
+            date=new Date(day, month, year);
         }while(!date.isValid());      
         return date;
     }
@@ -94,7 +94,7 @@ public class Date{
         return this.getMonth()==date.getMonth();
     }
 
-    public boolean isSameDay(){
+    public boolean isSameDay(Date date){
         return this.getDay()==date.getDay();
     }
 
@@ -103,33 +103,35 @@ public class Date{
     }
 
     public String getNameMonth(){
+        String monthName="";
         switch(this.getMonth()){
             case 1:
-                return "January";
+                monthName="January";
             case 2:     
-                return "February";
+                monthName="February";
             case 3: 
-                return "March";
+                monthName="March";
             case 4: 
-                return "April";
+                monthName="April";
             case 5:
-                return "May";
+                monthName="May";
             case 6:
-                return "June";
+                monthName="June";
             case 7: 
-                return "July";
+                monthName="July";
             case 8: 
-                return "August";
+                monthName="August";
             case 9: 
-                return "September";
+                monthName="September";
             case 10: 
-                return "October";
+                monthName="October";
             case 11: 
-                return "November";
+                monthName="November";
             case 12: 
-                return "December";
+                monthName="December";
       
         }
+        return monthName;
     }
 
     public boolean isValid(){
@@ -141,15 +143,16 @@ public class Date{
                 break;
             case 4:     
             case 6: 
-            case 4: 
-            case 6:
             case 9:
             case 11: 
                 if(this.getDay()>30) isValid=false;
                 break;
-
-            return isValid;
         }
+        return isValid;
     }
 
+    public boolean equals(Date date){
+        if(this.getDay()==date.getDay()&&this.getMonth()==date.getMonth()&&this.getYear()==date.getYear()) return true; 
+        else return false;
+    }
 }
