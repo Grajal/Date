@@ -60,13 +60,24 @@ public class Date{
         return date;
     }
 
-    public int getNumAttemptsToday(){
+    public int getNumAttemptsToday_while(){
         int numTries=0;
         
         while(!getRandomDateInsideYear().equals(this)){
             numTries++;
         }
 
+        return numTries;
+    }
+
+    public int getNumAttemptsToday_dowhile(){
+        int numTries=0;
+
+        do{ 
+            if(!getRandomDateInsideYear().equals(this)){
+                numTries++;
+            }   
+        }while(!getRandomDateInsideYear().equals(this));
         return numTries;
     }
 
@@ -146,13 +157,20 @@ public class Date{
         }
         return monthName;
     }
-    /*
+   
     public String getSeason(){
-        if(()&&()){
-
+        String season="";
+        if(3<=this.getMonth()&&6>this.getMonth()){   
+            season="Spring";
+        }else if(6<=this.getMonth()&&9>this.getMonth()){
+            season="Summer";
+        }else if(9<=this.getMonth()&&12>this.getMonth()){
+            season="Fall";
+        }else{
+            season="Winter";
         }
+        return season;
     }
-    */
     
     public StringBuffer getSameMonthsDaysAsDate(){
         StringBuffer cadena=new StringBuffer();
