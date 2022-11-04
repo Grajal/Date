@@ -99,12 +99,13 @@ public class Date{
     }
 
     public boolean isSame(Date date){
-        return this.equals(date);
+        if(this.getDay()==date.getDay()&&this.getMonth()==date.getMonth()&&this.getYear()==date.getYear()) return true; 
+        else return false;
     }
 
-    public String getNameMonth(){
+    public String getNameMonth(int month){
         String monthName="";
-        switch(this.getMonth()){
+        switch(month){
             case 1:
                 monthName="January";
                 break;
@@ -152,6 +153,23 @@ public class Date{
         }
     }
     */
+    
+    public StringBuffer getSameMonthsDaysAsDate(){
+        StringBuffer cadena=new StringBuffer();
+        if(this.getMonth()==2){
+            cadena.append("No hay ningun mes que tenga los mismos dias que febrero.");
+        }else{
+            
+             for(int i=1;i<=12;i++){
+                if(this.getDaysOfMonth(i)==this.getDaysOfMonth(this.getMonth())){
+                    if(i!=this.getMonth()){
+                        cadena.append(getNameMonth(i)+" ");
+                    }
+                }
+            }
+        }
+        return cadena;
+    }
 
     public int getMonthsUntilYearEnds(){
         int numMonths=0;
@@ -176,11 +194,6 @@ public class Date{
                 break;
         }
         return isValid;
-    }
-
-    public boolean equals(Date date){
-        if(this.getDay()==date.getDay()&&this.getMonth()==date.getMonth()&&this.getYear()==date.getYear()) return true; 
-        else return false;
     }
 
     public String toString(){
