@@ -171,6 +171,16 @@ public class Date{
         }
         return season;
     }
+
+    public StringBuffer getDatesUntilEndOfMonth(){
+        StringBuffer cadena=new StringBuffer();
+        Date date;
+        for(int i=this.getDay();i<=this.getDaysOfMonth(this.getMonth());i++){
+            date=new Date(i, this.getMonth(), this.getYear());
+            cadena.append(date.toString()+" ");
+        }
+        return cadena;
+    }
     
     public StringBuffer getSameMonthsDaysAsDate(){
         StringBuffer cadena=new StringBuffer();
