@@ -1,19 +1,58 @@
-import java.lang.Math.*;
+package es.unileon.prg1.date;
 
 public class Date{
     private int day;
     private int month;
     private int year;
 
-    public Date(int day, int month, int year) {
-        this.day=day;
-        this.month=month;
-        this.year=year;
+    public Date(int day, int month, int year) throws DateException{
+        this.setDay(day);
+        this.setMonth(month);
+        this.setYear(year);
     }
 
+    //Métodos getter
+
+    public int getDay(){
+        return this.day;
+    }
+
+    public int getMonth(){
+        return this.month;
+    }
+
+    public int getYear(){
+        return this.year;
+    }
+
+    //Métodos setter
+
+    public void setDay(int newDay) throws DateException{
+        if(newDay>this.getDaysOfMonth(newDay)||newDay<1) {
+        	throw new DateException("El dia no es correcto");
+        }else {
+        	this.day=newDay;
+        }
+    }
+
+    public void setMonth(int newMonth) throws DateException{
+        if(newMonth<1||newMonth>12) {
+        	throw new DateException("El mes no es correcto");
+        }else {
+        	this.month=newMonth;
+        }
+    }
+
+    public void setYear(int newYear) throws DateException{
+        if(newYear<0) {
+        	throw new DateException("No puede haber annos negativos");
+        }else {
+        	this.year=newYear;
+        }
+    }
+    
     public int getDaysSinceStartYear(){
         int days=0;
-
 
         for(int i=1;i<this.month;i++){
             days+=getDaysOfMonth(i);
@@ -49,7 +88,7 @@ public class Date{
     
     }
 
-    public Date getRandomDateInsideYear(){
+    public Date getRandomDateInsideYear() throws DateException{
         Date date;
         do{
             int day=(int)(Math.random()*31+1);
@@ -60,42 +99,30 @@ public class Date{
         return date;
     }
 
-    public int getNumAttemptsToday_while(){
+    public int getNumAttemptsToday_while() throws DateException{
         int numTries=0;
         
-        while(!getRandomDateInsideYear().equals(this)){
+        while(!getRandomDateInsideYear().isSame(this)){
             numTries++;
         }
 
         return numTries;
     }
 
-    public int getNumAttemptsToday_dowhile(){
+    public int getNumAttemptsToday_dowhile() throws DateException{
         int numTries=0;
 
         do{ 
-            if(!getRandomDateInsideYear().equals(this)){
+            if(!getRandomDateInsideYear().isSame(this)){
                 numTries++;
             }   
-        }while(!getRandomDateInsideYear().equals(this));
+        }while(!getRandomDateInsideYear().isSame(this));
         return numTries;
     }
 
-    public int getDay(){
-        return this.day;
-    }
+    
 
-    public int getMonth(){
-        return this.month;
-    }
-
-    public int getYear(){
-        return this.year;
-    }
-
-    public void setMonth(int newMonth){
-        this.month=newMonth;
-    }
+    
 
     public boolean isSameYear(Date date) {
         return this.getYear()==date.getYear();
@@ -110,8 +137,7 @@ public class Date{
     }
 
     public boolean isSame(Date date){
-        if(this.getDay()==date.getDay()&&this.getMonth()==date.getMonth()&&this.getYear()==date.getYear()) return true; 
-        else return false;
+        return (this.getDay()==date.getDay()&&this.getMonth()==date.getMonth()&&this.getYear()==date.getYear());
     }
 
     public String getNameMonth(int month){
@@ -172,7 +198,7 @@ public class Date{
         return season;
     }
 
-    public StringBuffer getDatesUntilEndOfMonth(){
+    public StringBuffer getDatesUntilEndOfMonth() throws DateException{
         StringBuffer cadena=new StringBuffer();
         Date date;
         for(int i=this.getDay();i<=this.getDaysOfMonth(this.getMonth());i++){
@@ -207,20 +233,38 @@ public class Date{
         return numMonths;
     }
 
+    /* 
+    public String getDayOfWeek(String firstDayOfWeekInYear){
+        int sumDays=0;
+        for(int i=1;i<this.getMonth();i++){
+            sumDays+=getDaysOfMonth(i);
+        }
+        sumDays+=this.getDay();
+        
+        //Pendiente por hacer 
+    }
+    */
+
     public boolean isValid(){
         boolean isValid=true;
-    
-        switch(this.getMonth()){ 
-            case 2:
-                if(this.getDay()>28) isValid=false;
-                break;
-            case 4:     
-            case 6: 
-            case 9:
-            case 11: 
-                if(this.getDay()>30) isValid=false;
-                break;
+
+        if(this.getDay()>31||this.getMonth()>12||this.getDay()<1||this.getMonth()<1){
+            isValid=false;
+        }else{
+            switch(this.getMonth()){ 
+                case 2:
+                    if(this.getDay()>28) isValid=false;
+                    break;
+                case 4:     
+                case 6: 
+                case 9:
+                case 11: 
+                    if(this.getDay()>30) isValid=false;
+                    break;
+            }
         }
+    
+        
         return isValid;
     }
 
